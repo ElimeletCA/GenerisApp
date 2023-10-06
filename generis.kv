@@ -1,0 +1,1429 @@
+#:kivy 1.0
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import Clock kivy.clock.Clock
+#:import MapSource kivy_garden.mapview.MapSource
+ScreenManager:
+    id: screen_manager_rt
+    AppScreen:
+        #Identificador del screen
+        id: appscreen 
+        name: 'AppScreen' 
+        #Define que manager se encargara de gestionar el screen
+        manager: 'screen_manager_rt'
+    ContactoScreen:
+        #Identificador del screen
+        id: contacto_screen 
+        name: 'ContactoScreen' 
+        #Define que manager se encargara de gestionar el screen
+        manager: 'screen_manager_rt'
+    ConfiguracionScreen:
+        #Identificador del screen
+        id: configuracion_screen 
+        name: 'ConfiguracionScreen' 
+        #Define que manager se encargara de gestionar el screen
+        manager: 'screen_manager_rt'
+    AcercaDeScreen:
+        #Identificador del screen
+        id: acercade_screen 
+        name: 'AcercaDeScreen' 
+        #Define que manager se encargara de gestionar el screen
+        manager: 'screen_manager_rt'    
+<AppScreen>:
+
+    MDNavigationLayout:
+        id: navigation_layout
+        ScreenManager:
+            id: screen_manager_principal
+            InicioScreen:
+                #Identificador del screen
+                id: inicio_screen 
+                name: 'InicioScreen' 
+                #Define que manager se encargara de gestionar el screen
+                manager: 'screen_manager_principal'
+                
+        MDNavigationDrawer:
+            id: nav_drawer
+            ContentNavigationDrawer:
+                orientation: "vertical"
+                padding: "8dp"
+                spacing: "8dp"
+
+                AnchorLayout:
+                    anchor_x: "left"
+                    size_hint_y: None
+                    height: avatar.height
+
+                    Image:
+                        id: avatar
+                        size_hint: None, None
+                        size: "56dp", "56dp"
+                        source: str(app.ruta("images/logoeg.jpg"))
+
+                MDLabel:
+                    text: "Egregie Mentes"
+                    font_style: "Button"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                MDLabel:
+                    text: "support.egregiementes@gmail.com"
+                    font_style: "Caption"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                ScrollView:
+
+                    DrawerList:
+                        id: md_list
+
+<InicioScreen>:
+    BoxLayout:
+        id: box_inicio
+        orientation: 'vertical'
+        MDToolbar:
+            title: "Generis"
+            elevation: 10
+            left_action_items: [['menu', lambda x: app.root.ids.appscreen.ids.nav_drawer.set_state("toggle")]]
+        MDBottomNavigation:
+            id: bottom_inicio
+            panel_color: get_color_from_hex("#eeeaea")
+            selected_color_background: get_color_from_hex("#97ecf8")
+            text_color_active: 0, 0, 0, 1
+            MDBottomNavigationItem:
+                id: navigation_item_informacion
+                name: "informacion"
+                text: 'Información'
+                icon: 'information'
+                badge_icon: "numeric-10"
+                ScreenManager:
+                    id: screen_manager_informacion
+                    InformacionScreen:
+                        id: informacionscreen
+                        name: 'InformacionScreen'
+                        manager: 'screen_manager_informacion'
+                    Dis_AuditivaScreen:
+                        id: dis_auditivascreen
+                        name: 'Dis_AuditivaScreen'
+                        manager: 'screen_manager_informacion'
+                    Dis_ComunicativaScreen:
+                        id: dis_comunicativa_screen
+                        name: 'Dis_ComunicativaScreen'
+                        manager: 'screen_manager_informacion'
+                    Dis_FisicaScreen:
+                        id: dis_fisica_screen
+                        name: 'Dis_FisicaScreen'
+                        manager: 'screen_manager_informacion'
+                    Dis_VisualScreen:
+                        id: dis_visual_screen
+                        name: 'Dis_VisualScreen'
+                        manager: 'screen_manager_informacion'
+                MDFloatingActionButtonSpeedDial:
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#001975")
+                    md_bg_color: get_color_from_hex("#D40078")
+                    data: 
+                        {'Discapacidades': 'book-information-variant',
+                        'Discapacidad Auditiva': 'ear-hearing',
+                        'Discapacidad Comunicativa': 'account-question',
+                        'Discapacidad Fisica': 'wheelchair-accessibility',
+                        'Discapacidad Visual': 'eye'}
+                    callback: app.call_btnspeeddial_informacion
+                    root_button_anim: True
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    #define en pixeles el espacio entre los widgets hijo y el borde del widget boxlayout 
+                    #define en pixeles el espacio entre los widgets hijo dentro del widget boxlayout 
+                    spacing:10
+                    #adaptive_height: True
+#                    AnchorLayout:
+#                        id: asistente
+#                        anchor_x: "left"
+#                        anchor_y: "bottom"
+#                        MDIconButton:
+#                            id: asistente
+#                            icon: "account-tie-voice"
+#                            user_font_size: "64sp"
+#                            on_press:
+#                                #instrucciones if para verificar si el boton no esta presionado, en tal caso el asistente estara activado, se divido en dos instrucciones para evitar problemas propios de kivy
+#                                if app.estado_asistente == 1: app.estado_asistente = 0
+#                                else: app.estado_asistente = 1
+#                                if app.estado_asistente == 1: self.icon = str("account-tie-voice")
+#                                else: self.icon = str("account-tie-voice-off")
+#                                print(app.estado_asistente)
+            MDBottomNavigationItem:
+                id: navigation_item_ayuda
+                name: "ayuda"   
+                text: 'Ayuda'
+                icon: 'help-circle'
+                badge_icon: "numeric-10"
+                ScreenManager:
+                    id: screen_manager_ayuda
+                    AyudaScreen:
+                        id: ayuda_screen
+                        name: 'AyudaScreen'
+                        manager: 'screen_manager_ayuda'
+                    Pais_CostaRicaScreen:
+                        id: pais_costa_rica
+                        name: 'Pais_CostaRicaScreen'
+                        manager: 'screen_manager_ayuda'
+                    Pais_GuatemalaScreen:
+                        id: pais_guatemala
+                        name: 'Pais_GuatemalaScreen'
+                        manager: 'screen_manager_ayuda'
+                    Pais_PanamaScreen:
+                        id: pais_panama
+                        name: 'Pais_PanamaScreen'
+                        manager: 'screen_manager_ayuda'
+                    Pais_RepublicaDominicanaScreen:
+                        id: pais_republica_dominicana
+                        name: 'Pais_RepublicaDominicanaScreen'
+                        manager: 'screen_manager_ayuda'
+                MDFloatingActionButtonSpeedDial:
+                    data: 
+                        {'Ayuda': 'account-question',
+                        'Costa Rica': str(app.ruta("images/CR.png")),
+                        'Guatemala': str(app.ruta("images/GT.png")),
+                        'Panamá': str(app.ruta("images/PA.png")),
+                        'República Dominicana': str(app.ruta("images/DO.png"))}
+                    callback: app.call_btnspeeddial_ayuda
+                    root_button_anim: True                          
+            MDBottomNavigationItem:
+                id: navigation_item_comunidad
+                name: "comunidad"   
+                text: 'Comunidad'
+                icon: 'account-group'
+                badge_icon: "numeric-10"
+            MDBottomNavigationItem:
+                id: navigation_item_lugares
+                name: "lugares"   
+                text: 'Lugares'
+                icon: 'map-marker-star'
+                badge_icon: "numeric-10"
+                ScreenManager:
+                    id: screen_manager_lugares
+                    LugaresScreen:
+                        id: lugares_screen
+                        name: 'LugaresScreen'
+                        manager: 'screen_manager_lugares'
+                    Pais_Lugares_CostaRicaScreen:
+                        id: pais_lugares_costa_rica
+                        name: 'Pais_Lugares_CostaRicaScreen'
+                        manager: 'screen_manager_lugares'
+                    Pais_Lugares_GuatemalaScreen:
+                        id: pais_lugares_guatemala
+                        name: 'Pais_Lugares_GuatemalaScreen'
+                        manager: 'screen_manager_lugares'
+                    Pais_Lugares_PanamaScreen:
+                        id: pais_lugares_panama
+                        name: 'Pais_Lugares_PanamaScreen'
+                        manager: 'screen_manager_lugares'
+                    Pais_Lugares_RepublicaDominicanaScreen:
+                        id: pais_lugares_republica_dominicana
+                        name: 'Pais_Lugares_RepublicaDominicanaScreen'
+                        manager: 'screen_manager_lugares'
+                MDFloatingActionButtonSpeedDial:
+                    data: 
+                        {'Lugares': 'map-marker-radius',
+                        'Costa Rica': str(app.ruta("images/CR.png")),
+                        'Guatemala': str(app.ruta("images/GT.png")),
+                        'Panamá': str(app.ruta("images/PA.png")),
+                        'República Dominicana': str(app.ruta("images/DO.png"))}
+                    callback: app.call_btnspeeddial_lugares
+                    root_button_anim: True
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    #define en pixeles el espacio entre los widgets hijo y el borde del widget boxlayout 
+                    #define en pixeles el espacio entre los widgets hijo dentro del widget boxlayout 
+                    spacing:10
+                    #adaptive_height: True
+<ConfiguracionScreen>:
+    BoxLayout:
+        orientation: "vertical"     
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MDToolbar:
+            title: "Configuración"
+            elevation: 10
+            left_action_items: [['arrow-left', lambda x: app.back_to_appscreen()]]
+        MDLabel:
+            text: "Configuracion"                
+
+<ContactoScreen>:
+    BoxLayout:
+        orientation: "vertical"     
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MDToolbar:
+            title: "Contacto"
+            elevation: 10
+            left_action_items: [['arrow-left', lambda x: app.back_to_appscreen()]]
+        MDLabel:
+            text: "Contacto"
+<AcercaDeScreen>:
+    BoxLayout:
+        orientation: "vertical"     
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MDToolbar:
+            title: "Acerca de"
+            elevation: 10
+            left_action_items: [['arrow-left', lambda x: app.back_to_appscreen()]]
+        MDLabel:
+            text: "Acerca de"   
+<ItemDrawer>:
+    theme_text_color: "Primary"
+    on_release:
+        self.parent.set_color_item(self)
+        app.call_drawerlist_menuderecho(self)
+    IconLeftWidget:
+        id: icon
+        icon: root.icon
+        theme_text_color: "Primary"
+        text_color: 0, 0, 1, 1
+
+
+<InformacionScreen>:
+    Image:
+        source: str(app.ruta("images/fondoinformacion.png"))
+        allow_stretch: True
+        keep_ratio: True
+        size_hint_y: None
+        size_hint_x: None
+        width: self.parent.width
+        height: self.parent.width/self.image_ratio
+<Dis_AuditivaScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding:20
+        spacing:10
+        
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+       
+        MyCard:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            canvas.before:
+                Color:
+                    rgba: app.theme_cls.primary_color
+                RoundedRectangle:
+                    radius: [10]
+                    size: self.size
+                    pos: self.pos
+            FloatLayout:
+                size: self.size
+                pos: self.pos
+                pos_hint: {"x": 1, "y": -0.6}
+                BoxLayout:
+                    orientation: "vertical"
+                    padding:20
+                    ScrollView:
+                        id: scroll
+                        CodeInput:
+                            foreground_color: 1,1,1,1
+                            background_color: 1,1,1,0
+                            allow_copy: False
+                            readonly: True
+                            size_hint: 1, None
+                            text: str(app.showtext("text/discapacidad_auditiva.txt"))
+                            height: max(self.minimum_height, scroll.height)
+<Dis_ComunicativaScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding:20
+        spacing:10
+        
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MyCard:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            canvas.before:
+                Color:
+                    rgba: app.theme_cls.primary_color
+                RoundedRectangle:
+                    radius: [10]
+                    size: self.size
+                    pos: self.pos
+            FloatLayout:
+                size: self.size
+                pos: self.pos
+                pos_hint: {"x": 1, "y": -0.6}
+                BoxLayout:
+                    orientation: "vertical"
+                    padding:20
+                    ScrollView:
+                        id: scroll
+                        CodeInput:
+                            foreground_color: 1,1,1,1
+                            background_color: 1,1,1,0
+                            allow_copy: False
+                            readonly: True
+                            size_hint: 1, None
+                            text: str(app.showtext("text/discapacidad_comunicativa.txt"))
+                            height: max(self.minimum_height, scroll.height)
+<Dis_FisicaScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding:20
+        spacing:10
+        
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MyCard:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            canvas.before:
+                Color:
+                    rgba: app.theme_cls.primary_color
+                RoundedRectangle:
+                    radius: [10]
+                    size: self.size
+                    pos: self.pos
+            FloatLayout:
+                size: self.size
+                pos: self.pos
+                pos_hint: {"x": 1, "y": -0.6}
+                BoxLayout:
+                    orientation: "vertical"
+                    padding:20
+                    ScrollView:
+                        id: scroll
+                        CodeInput:
+                            foreground_color: 1,1,1,1
+                            background_color: 1,1,1,0
+                            allow_copy: False
+                            readonly: True
+                            size_hint: 1, None
+                            text: str(app.showtext("text/discapacidad_fisica.txt"))
+                            height: max(self.minimum_height, scroll.height)
+<Dis_VisualScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding:20
+        spacing:10
+        
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MyCard:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            canvas.before:
+                Color:
+                    rgba: app.theme_cls.primary_color
+                RoundedRectangle:
+                    radius: [10]
+                    size: self.size
+                    pos: self.pos
+            FloatLayout:
+                size: self.size
+                pos: self.pos
+                pos_hint: {"x": 1, "y": -0.6}
+                BoxLayout:
+                    orientation: "vertical"
+                    padding:20
+                    ScrollView:
+                        id: scroll
+                        CodeInput:
+                            foreground_color: 1,1,1,1
+                            background_color: 1,1,1,0
+                            allow_copy: False
+                            readonly: True
+                            size_hint: 1, None
+                            text: str(app.showtext("text/discapacidad_visual.txt"))
+                            height: max(self.minimum_height, scroll.height)
+<AyudaScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding:20
+        spacing:10
+        
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MDLabel:
+            text: "Ayuda"
+<Pais_CostaRicaScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding:20
+        spacing:5
+        
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+        MyCard:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            canvas.before:
+                Color:
+                    rgba: app.theme_cls.primary_color
+                RoundedRectangle:
+                    radius: [10]
+                    size: self.size
+                    pos: self.pos
+            FloatLayout:
+                size: self.size
+                pos: self.pos
+                pos_hint: {"x": 1, "y": -0.6}
+                BoxLayout:
+                    orientation: "vertical"
+                    padding:20
+                    spacing:5
+                    Image:
+                        source: str(app.ruta("images/ASCR.png"))
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: self.texture_size
+                    MDLabel:
+                        font_style: "H6"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "FEREPRODIS"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Federación Red Pro Personas Con Discapacidad"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Costa Rica"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Teléfono: (506) 2440-2428"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        markup: True
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 0, 1
+                        text: "Sitio web: [ref=http://fereprodis.blogspot.com/]http://fereprodis.blogspot.com/[/ref]"
+                        halign: "center"
+                        on_ref_press:        
+                            import webbrowser
+                            webbrowser.open("http://fereprodis.blogspot.com/")
+
+
+<Pais_PanamaScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding:20
+        spacing:10
+        
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MyCard:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            canvas.before:
+                Color:
+                    rgba: app.theme_cls.primary_color
+                RoundedRectangle:
+                    radius: [10]
+                    size: self.size
+                    pos: self.pos
+            FloatLayout:
+                size: self.size
+                pos: self.pos
+                pos_hint: {"x": 1, "y": -0.6}
+                BoxLayout:
+                    orientation: "vertical"
+                    padding:20
+                    spacing:5
+                    Image:
+                        source: str(app.ruta("images/ASPA.png"))
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: self.texture_size
+                    MDLabel:
+                        font_style: "H6"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "FENAPEDI"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Federación Nacional de Asociación de Padres y Amigos de Personas con Discapacidad"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Panamá"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Teléfono: (507) 232-8879"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        markup: True
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 0, 1
+                        text: "Sitio web: [ref=https://www.observatorio.parlacen.int/]https://www.observatorio.parlacen.int/[/ref]"
+                        halign: "center"
+                        on_ref_press:        
+                            import webbrowser
+                            webbrowser.open("https://www.observatorio.parlacen.int/")
+
+<Pais_GuatemalaScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding:20
+        spacing:10
+        
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MyCard:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            canvas.before:
+                Color:
+                    rgba: app.theme_cls.primary_color
+                RoundedRectangle:
+                    radius: [10]
+                    size: self.size
+                    pos: self.pos
+            FloatLayout:
+                size: self.size
+                pos: self.pos
+                pos_hint: {"x": 1, "y": -0.6}
+                BoxLayout:
+                    orientation: "vertical"
+                    padding:20
+                    spacing:5
+                    Image:
+                        source: str(app.ruta("images/ASGT.png"))
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: self.texture_size
+                    MDLabel:
+                        font_style: "H6"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "CONADI"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Consejo Nacional Para la Atención de Personas con Discapacidad"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Guatemala"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Teléfono: +502 2501 6800"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        markup: True
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 0, 1
+                        text: "Sitio web: [ref=https://conadi.gob.gt/web/]https://conadi.gob.gt/web/[/ref]"
+                        halign: "center"
+                        on_ref_press:        
+                            import webbrowser
+                            webbrowser.open("https://conadi.gob.gt/web/")
+
+<Pais_RepublicaDominicanaScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding:20
+        spacing:10
+        
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MyCard:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            canvas.before:
+                Color:
+                    rgba: app.theme_cls.primary_color
+                RoundedRectangle:
+                    radius: [10]
+                    size: self.size
+                    pos: self.pos
+            FloatLayout:
+                size: self.size
+                pos: self.pos
+                pos_hint: {"x": 1, "y": -0.6}
+                BoxLayout:
+                    orientation: "vertical"
+                    padding:20
+                    spacing:5
+                    Image:
+                        source: str(app.ruta("images/ASRD.png"))
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: self.texture_size
+                    MDLabel:
+                        font_style: "H6"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "FENADID"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Federación Nacional de Discapacitados Dominicanos"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "República Dominicana"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        text: "Teléfono: +1809-682-5798"
+                        halign: "center"
+                    MDLabel:
+                        font_style: "H5"
+                        markup: True
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 0, 1
+                        text: "Sitio web: [ref=https://conadis.gob.do/]https://conadis.gob.do/[/ref]"
+                        halign: "center"
+                        on_ref_press:        
+                            import webbrowser
+                            webbrowser.open("https://conadis.gob.do/")
+
+<LugaresScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding:20
+        spacing:10
+        canvas:
+            Color:
+                #Beige_#f5f5dc
+                rgb: 0xf5 / 255.0, 0xf5 / 255.0, 0xdc / 255.0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MDLabel:
+            text: "Lugares"
+<Pais_Lugares_CostaRicaScreen>:
+    MapView:
+        id: mapview
+        lat: 9.748917
+        lon: -83.753428
+        zoom: 8
+
+        MapMarkerPopup:
+            lat: 9.957306
+            lon: -84.196194
+            source: str(app.ruta("images/icon_restaurante.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (255, 0, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Johnny Rockets[/b]            +506 2208 8840"
+                    markup: True
+                    halign: "center"      
+        MapMarkerPopup:
+            lat: 9.933556
+            lon: -84.074444
+            source: str(app.ruta("images/icon_restaurante.png"))
+            #popup_size: dp(20), dp(30)
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (255, 0, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Pizzeria Costa del Sol[/b]             +506 2222 2480"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            lat: 9.828194
+            lon: -83.811306
+            source: str(app.ruta("images/icon_restaurante.png")) 
+            #popup_size: dp(20), dp(30)
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (255, 0, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]La Casona del Cafetal[/b]             +506 2577 1414"
+                    markup: True
+                    halign: "center"
+
+        
+        MapMarkerPopup:
+            lat: 9.929806
+            lon: -83.617694
+            source: str(app.ruta("images/icon_hotel.png"))
+            #popup_size: dp(20), dp(30)
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Bella Vista Ranch[/b]             +506 6154 0164"
+                    markup: True
+                    halign: "center"
+
+        MapMarkerPopup:
+            #Corredores del Pacuare
+            lat: 9.881444
+            lon: -83.571306
+            source: str(app.ruta("images/icon_hotel.png"))
+            #popup_size: dp(20), dp(30)
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Corredores Del Pacuare[/b]             +506 8732 4318"
+                    markup: True
+                    halign: "center" 
+        MapMarkerPopup:
+            #La Flor de Loto 
+            lat: 9.857694
+            lon: -83.794194
+            source: str(app.ruta("images/icon_hotel.png"))
+            #popup_size: dp(20), dp(30)
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]La Flor de Loto[/b]             +506 8827 8262"
+                    markup: True
+                    halign: "center"
+        #Recreacion
+        MapMarkerPopup:
+            #Parque La Libertad
+            lat: 9.889944
+            lon: -84.033944
+            source: str(app.ruta("images/icon_recreacion.png"))
+            #popup_size: dp(20), dp(30)
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Parque La Libertad[/b]             +506 2276 9400"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Playa Hermosa Guanacaste 
+            lat: 10.573194
+            lon: -85.679944
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Playa Hermosa Guanacaste[/b]             Provincia de Guanacaste"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Natación para Personas con Discapacidad Intelectual (NADI)
+            lat: 9.970444
+            lon: -84.128694
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Natación para Personas con Discapacidad Intelectual[/b]             2562-6733"
+                    markup: True
+                    halign: "center"
+        #Tienda
+        MapMarkerPopup:
+            #Multiplaza 
+            lat: 9.943944
+            lon: -84.150306
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Multiplaza Escazu[/b]             +506 2211 1111"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #City Mall 
+            lat: 10.004306
+            lon: -84.211694
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]City Mall[/b]             +506 4200 5100"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Avenida Escazú 
+            lat: 9.938194
+            lon: -84.142694
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Avenida Escazu[/b]             +506 2288 0101"
+                    markup: True
+                    halign: "center"                                               
+<Pais_Lugares_GuatemalaScreen>:
+    MapView:
+        id: mapview 
+        lat: 14.5746488780952
+        lon: -90.54713103221287
+        zoom: 8
+
+
+        #Restaurantes
+        MapMarkerPopup:
+            #Pollo Campero        
+            lat: 14.588963780668601
+            lon: -90.52066205727108
+            source: str(app.ruta("images/icon_restaurante.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (255, 0, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Pollo Campero [/b]            +502 2221 0093"
+                    markup: True
+                    halign: "center"                           
+        #Hoteles
+        MapMarkerPopup:
+            #Barcelo Guatemala City
+            lat: 14.597657309929449
+            lon: -90.51903350337724
+            source: str(app.ruta("images/icon_hotel.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Barcelo Guatemala City[/b]             +502 2378 4000"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Grand Tikal Futura Hotel
+            lat: 14.622735572288178
+            lon: -90.55408856104776
+            source: str(app.ruta("images/icon_hotel.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Grand Tikal Futura Hotel[/b]             +502 2410 0800"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #The Westin Camino Real Guatemala 
+            lat: 14.598124609576276
+            lon: -90.51575917454191
+            source: str(app.ruta("images/icon_hotel.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]The Westin Camino Real[/b]             +502 2333 3000"
+                    markup: True
+                    halign: "center"
+        #Recreacion
+        MapMarkerPopup:
+            #Irtra Petapa
+            lat: 14.5746488780952
+            lon: -90.54713103221287
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Irtra Petapa[/b]             +502 2245 1100"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Zoologico La Aurora 
+            lat: 14.598891921267434
+            lon: -90.52586018988336
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Zoologico La Aurora[/b]             +502 2463 0463"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Museo del Niño
+            lat: 14.597309175248872
+            lon: -90.52782236104804
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Museo del Niño[/b]             +502 2213 8989"
+                    markup: True
+                    halign: "center"
+        #Tienda
+        MapMarkerPopup:
+            #Pradera Concepción 
+            lat: 14.553290112614068
+            lon: -90.45313646104847
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Pradera Concepción[/b]             +502 6634 1647"
+                    markup: True
+                    halign: "center"      
+        MapMarkerPopup:
+            #Plaza Fontabella
+            lat: 14.599883961030287
+            lon: -90.51209794570651
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Plaza Fontabella[/b]             +502 6628 8600"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Centro Comercial Parque Las Américas 
+            lat: 14.589233909364442
+            lon: -90.51934236138317
+            source: str(app.ruta("images/icon_tienda.png"))                
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Centro Comercial Parque Las Américas[/b]             +502 2375 9999"
+                    markup: True
+                    halign: "center"
+<Pais_Lugares_PanamaScreen>:
+    MapView:
+        id: mapview y longitud 
+        lat: 9.069553972784643
+        lon: -79.5182396644931
+        zoom: 8
+        #Restaurantes
+        MapMarkerPopup:
+            #fridays - el dorado
+            lat: 9.00632550382412
+            lon: -79.53841016434492
+            source: str(app.ruta("images/icon_restaurante.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (255, 0, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]fridays - el dorado[/b]            +507 300-3795"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #pizza hut - milla 8
+            lat: 9.069553972784643
+            lon: -79.5182396644931
+            source: str(app.ruta("images/icon_restaurante.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (255, 0, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]pizza hut - milla 8[/b]            +507 236-1111"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #parrillada jimmy
+            lat: 8.991217879768197
+            lon: -79.49803890196733
+            source: str(app.ruta("images/icon_restaurante.png"))                                
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (255, 0, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]parrillada jimmy[/b]            +507 226-1870"
+                    markup: True
+                    halign: "center"
+        #Hoteles
+        MapMarkerPopup:
+            #ramada plaza
+            lat: 8.987681983422627
+            lon: -79.50724119162227
+            source: str(app.ruta("images/icon_hotel.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]ramada plaza[/b]             +507 322-0000"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #plaza paitilla inn
+            lat: 8.974089695437199
+            lon: -79.51643758465782
+            source: str(app.ruta("images/icon_hotel.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]plaza paitilla inn[/b]             +507 208-0600"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #radisson hotel panama canal 
+            lat: 8.941854085691961
+            lon: -79.5557000539734
+            source: str(app.ruta("images/icon_hotel.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]radisson hotel[/b]             +507 211-4500"
+                    markup: True
+                    halign: "center"
+        #Recreacion
+        MapMarkerPopup:
+            #multiplaza
+            lat: 8.986473010099175
+            lon: -79.50893056357442
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]multiplaza[/b]             +507 302-5380"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #altaplaza 
+            lat: 9.032227518003047
+            lon: -79.53146140818913
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]altaplaza[/b]             +507 830-7080"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #albrook mall
+            lat: 8.971987920658723
+            lon: -79.55213215444732
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]albrook mall[/b]             +507 382-0665"
+                    markup: True
+                    halign: "center"
+        #Tienda
+        MapMarkerPopup:
+            #super 99 - villa zaita 
+            lat: 9.07507474072996
+            lon: -79.5232947545288
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]super 99 - villa zaita [/b]             +507 380-4889"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #super xtra - san miguelito
+            lat: 9.036128404631723
+            lon: -79.50543231108172
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]super xtra - san miguelito[/b]             +507 267-8896"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #supermercado rey - el dorado 
+            lat: 9.009755606054513
+            lon: -79.53506492986612
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]supermercado rey - el dorado[/b]             +507 260-6370"
+                    markup: True
+                    halign: "center"
+<Pais_Lugares_RepublicaDominicanaScreen>:
+    MapView:
+        id: mapview
+        lat: 18.47186
+        lon: -69.89232
+        zoom: 8
+
+
+
+        #Restaurantes   
+        MapMarkerPopup:
+            #Restaurante Dennys
+            lat: 18.474718145842402
+            lon: -69.8835385657857
+            source: str(app.ruta("images/icon_restaurante.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (255, 0, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Restaurante Dennys[/b]             (809) 633-6697"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Restaurante Taco Bell Arroyo Hondo
+            lat: 18.504773035393733
+            lon: -69.94414791126884
+            source: str(app.ruta("images/icon_restaurante.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (255, 0, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Restaurante Taco Bell[/b]            (809) 238-0071"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Restaurante Victoria by Porter House
+            lat: 18.47467469638351 
+            lon: -69.93725394603668
+            source: str(app.ruta("images/icon_restaurante.png"))                                
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (255, 0, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Restaurante Victoria[/b]            (809) 542-6000"
+                    markup: True
+                    halign: "center"
+        #Hoteles   
+        MapMarkerPopup:
+            #Hotel Courtyard Santo Domingo By Marriott
+            lat: 18.468054079326595
+            lon: -69.911885225086
+            source: str(app.ruta("images/icon_hotel.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Hotel Courtyard[/b]             (809) 685-1010"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Hotel Barceló Santo Domingo
+            lat: 18.47559979363882 
+            lon: -69.91245925396332
+            source: str(app.ruta("images/icon_hotel.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Hotel Barceló[/b]             (809) 563-5000"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Hotel Crowne Plaza Santo Domingo
+            lat: 18.464290114733803 
+            lon: -69.8950419549787
+            source: str(app.ruta("images/icon_hotel.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 255, 0, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Hotel Crowne Plaza[/b]             (809) 221-0000"
+                    markup: True
+                    halign: "center"
+        #Recreacion
+        MapMarkerPopup:
+            #La Zona Colonial
+            lat: 18.47322356153959 
+            lon: -69.88605068315773
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]La Zona Colonial[/b]"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #el Alcázar de Colón
+            lat: 18.478297306249637
+            lon: -69.8804762866852
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]el Alcázar de Colón[/b]             (809) 960-9371"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #El Jardín Botánico
+            lat: 18.491613047422184 
+            lon: -69.95869805514384
+            source: str(app.ruta("images/icon_recreacion.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (0, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]El Jardín Botánico[/b]             (809) 385-2611"
+                    markup: True
+                    halign: "center"
+        #Tienda   
+        MapMarkerPopup:
+            # 
+            lat: 18.483417770438134 
+            lon: -69.9121421693089
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Sambil[/b]              (809) 234-5678"
+                    markup: True
+                    halign: "center" 
+        MapMarkerPopup:
+            #Megacentro
+            lat: 18.507728406414206 
+            lon: -69.85450927875858
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Megacentro[/b]             (809) 236-7660"
+                    markup: True
+                    halign: "center"
+        MapMarkerPopup:
+            #Agora mall 
+            lat: 18.484218368061722 
+            lon: -69.93935718465444
+            source: str(app.ruta("images/icon_tienda.png"))
+            popup_size: dp(80), dp(120)
+            Bubble:
+                background_color: (158, 0, 255, .9) #10% translucent white
+                border: [0, 0, 0, 0]
+                MDLabel:
+                    text: "[b]Agora Mall[/b]             (809) 363-2323"
+                    markup: True
+                    halign: "center"
