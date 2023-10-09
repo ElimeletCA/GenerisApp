@@ -1,5 +1,6 @@
 # GenerisApp
 Screenshots
+
 ![Alt text](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screen_Recording_20231009_174343_Generis.gif?raw=true)
 ![Alt text](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screenshot_20231009_174025_Generis.jpg?raw=true)
 ![Alt text](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screenshot_20231009_174034_Generis.jpg?raw=true)
