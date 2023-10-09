@@ -1,8 +1,8 @@
 # GenerisApp
 Screenshots
-/relative/path/to/img.jpg?raw=true "Optional Title")
+/relative/path/to/img.jpg "Optional Title")
 
-![Alt text](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screen_Recording_20231009_174343_Generis.gif)
+![Alt text](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screen_Recording_20231009_174343_Generis.gif?raw=true)
 
 https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screenshot_20231009_174025_Generis.jpg
 https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screenshot_20231009_174034_Generis.jpg
