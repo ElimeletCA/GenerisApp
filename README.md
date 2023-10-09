@@ -2,7 +2,7 @@
 Screenshots
 
 ![](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screen_Recording_20231009_174343_Generis.gif?raw=true)
-![](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screenshot_20231009_174025_Generis.jpg?raw=true =250x250)
+![](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screenshot_20231009_174025_Generis.jpg=250x250)
 ![](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screenshot_20231009_174034_Generis.jpg?raw=true)
 ![](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screenshot_20231009_174059_Generis.jpg?raw=true)
 ![](https://github.com/ElimeletCA/GenerisApp/blob/main/Resources/Screenshot_20231009_174108_Generis.jpg?raw=true)
